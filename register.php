@@ -17,17 +17,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($checkEmailStmt->num_rows > 0) {
         $message = "Email ID already exists";
-        $toastClass = "#ffc107"; // Warning yellow
+        $toastClass = "#ffc107";
     } else {
         $stmt = $conn->prepare("INSERT INTO user1 (username, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $email, $password);
 
         if ($stmt->execute()) {
             $message = "Account created successfully";
-            $toastClass = "#198754"; // Success green
+            $toastClass = "#198754";
         } else {
             $message = "Error: " . $stmt->error;
-            $toastClass = "#dc3545"; // Danger red
+            $toastClass = "#dc3545";
         }
         $stmt->close();
     }
@@ -39,48 +39,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/295/295128.png">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Registration</title>
-    <style>
-                body {
-            background-color: #661414 !important;
-        }
-        .register-card {
-            background-color: #661414f;
 
-            width: 380px; 
-            box-shadow: rgba(0, 0, 0, 0.4) 0px 10px 25px;
-            border-radius: 12px;
+    <title>Registration</title>
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(rgba(143, 0, 0, 0.75), rgba(143, 0, 0, 0.75)),
+                        url('uph-campus.jpg') center/cover no-repeat;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .register-card {
+            background: #7b0d0d;
+            border-radius: 30px;
+            width: 380px;
+            padding: 30px 35px;
+            color: #fff;
+            box-shadow: rgba(0,0,0,0.4) 0 10px 30px;
             border: none;
         }
+
         .register-card img {
-        width: 380px;
-        display: block;
-        margin: 0 auto 10px;
+            width: 380px;
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+        /* INPUT DESIGN */
+        .register-card input.form-control {
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: none;
+            background-color: #f2f2f2;
+            font-size: 14px;
+        }
+
+        .register-card input.form-control:focus {
+            outline: none;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6);
+        }
+
+        .register-card label {
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 6px;
         }
 
         .btn-theme {
             background-color: #661414 !important;
             border-color: #661414 !important;
             color: #ffffff !important;
-            transition: opacity 0.3s;
+            border-radius: 12px;
         }
+
         .btn-theme:hover {
             opacity: 0.9;
-            color: #ffffff;
         }
+
         .link-text {
-            color: #661414;
+            color: #ffdede;
             font-weight: 700;
-            text-decoration: Glacial Indifference;
+            text-decoration: none;
         }
+
         .link-text:hover {
             text-decoration: underline;
         }
@@ -88,7 +119,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-   <div class="container d-flex flex-column align-items-center min-vh-100 justify-content-center">
+
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
 
     <?php if ($message): ?>
         <div class="alert text-center mb-3" style="background-color: <?php echo $toastClass; ?>; color: #fff;">
@@ -96,25 +128,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     <?php endif; ?>
 
-    <form method="post" class="form-control p-4 register-card text-center">
+    <form method="post" class="form-control register-card text-center">
 
         <!-- UPH Logo -->
         <img src="uph-logo.png" alt="UPH Logo">
 
-        <h5 class="mb-4" style="font-weight: 700;">Create Your Account</h5>
+        <h5 class="mb-4 ">Create Your Account</h5>
 
         <div class="mb-3 text-start">
-            <label class="form-label"><i class="fa fa-user"></i> User Name</label>
+            <label><i class="fa fa-user"></i> User Name</label>
             <input type="text" name="username" class="form-control" placeholder="Choose a username" required>
         </div>
 
         <div class="mb-3 text-start">
-            <label class="form-label"><i class="fa fa-envelope"></i> Email</label>
+            <label><i class="fa fa-envelope"></i> Email</label>
             <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
         </div>
 
         <div class="mb-3 text-start">
-            <label class="form-label"><i class="fa fa-lock"></i> Password</label>
+            <label><i class="fa fa-lock"></i> Password</label>
             <input type="password" name="password" class="form-control" placeholder="Create a password" required>
         </div>
 
@@ -125,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="mt-4">
-            <p class="fw-medium">
+            <p class="fw-medium mb-0">
                 I have an account?
                 <a href="./login.php" class="link-text">Login</a>
             </p>
