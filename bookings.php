@@ -9,7 +9,6 @@ if (!isset($_SESSION['email'])) {
 
 $user_email = $_SESSION['email'];
 
-// Updated query to match your Figma fields
 $stmt = $conn->prepare("SELECT id, workspace_name, booking_date, start_time, end_time, location, purpose, status FROM bookings WHERE user_email = ? ORDER BY booking_date DESC");
 $stmt->bind_param("s", $user_email);
 $stmt->execute();
@@ -30,7 +29,7 @@ $result = $stmt->get_result();
         .navbar { background: white !important; border-bottom: 1px solid #dee2e6; }
         .nav-link.active { color: var(--uph-maroon) !important; font-weight: 600; border-bottom: 2px solid var(--uph-maroon); }
         
-        /* Figma-inspired Card Styling */
+    
         .booking-card { 
             border: none; 
             border-radius: 12px; 
@@ -134,4 +133,5 @@ $result = $stmt->get_result();
 </main>
 
 </body>
+
 </html>
