@@ -2,7 +2,6 @@
 session_start();
 include 'config.php';
 
-// Check if user is logged in
 if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
@@ -137,4 +136,5 @@ $workspaces = [
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
